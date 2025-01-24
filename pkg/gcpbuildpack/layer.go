@@ -125,6 +125,11 @@ func (ctx *Context) ClearLayer(l *libcnb.Layer) error {
 // SetMetadata sets metadata on the layer.
 func (ctx *Context) SetMetadata(l *libcnb.Layer, key, value string) {
 	l.Metadata[key] = value
+	for _, layer := range ctx.buildResult.Layers {
+		if layer.Name == l.Name {
+			layer.Metadata[key] = value
+		}
+	}
 }
 
 // GetMetadata gets metadata from the layer.
